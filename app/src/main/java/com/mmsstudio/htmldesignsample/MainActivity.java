@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private View[] dots;
     private Handler autoSlideHandler = new Handler();
 
+    // bubble views
+    private View bubble1, bubble2, bubble3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,20 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewPager);
         dotsLayout = findViewById(R.id.dotsLayout);
+
+        // find your bubble views
+        bubble1 = findViewById(R.id.bubble1);
+        bubble2 = findViewById(R.id.bubble2);
+        bubble3 = findViewById(R.id.bubble3);
+
+        // load and start each bubble animation
+        Animation animPing      = AnimationUtils.loadAnimation(this, R.anim.anim_ping);
+        Animation animPulseSlow = AnimationUtils.loadAnimation(this, R.anim.anim_pulse_slow);
+        Animation animBounce    = AnimationUtils.loadAnimation(this, R.anim.anim_bounce);
+
+        bubble1.startAnimation(animPing);
+        bubble2.startAnimation(animPulseSlow);
+        bubble3.startAnimation(animBounce);
 
         // 1) set up your slides
         adapter = new SliderAdapter(this, new SlideItem[]{
